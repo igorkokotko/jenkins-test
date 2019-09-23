@@ -1,4 +1,4 @@
-FROM node:8.11.1
+FROM twc-wsi-media-engage-docker.jfrog.io/base/test-repo:11.11.11.01
 
 # Create app directory
 WORKDIR /usr/src/app
@@ -17,5 +17,3 @@ COPY . .
 
 EXPOSE 8080
 CMD [ "node", "server.js" ]
-
-
