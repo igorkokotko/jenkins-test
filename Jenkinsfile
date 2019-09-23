@@ -1,12 +1,8 @@
-
 import hudson.*
 import groovy.json.JsonSlurperClassic
 import groovy.json.JsonOutput
-import hudson.FilePath
-import java.io.File
 
 def response
-def myRepo = checkout scm
 
 node('master') {
     stage('Clone sources') {
@@ -17,14 +13,20 @@ node('master') {
         def pullRequestLatestCommit = sh(returnStdout: true, script: "git log -n 1 origin/master --pretty=format:'%H'")
 
         try {
-           def packageJsonChanged = sh(returnStdout: true, script: "git diff ${latestCommit} ${pullRequestLatestCommit} --name-only | grep package.json")
+            def packageJsonChanged = sh(returnStdout: true, script: "git diff ${latestCommit} ${pullRequestLatestCommit} --name-only | grep package.json")
+            def dockerFilePath = pwd() + '/Dockerfile'
 
-            echo myRepo
             if(packageJsonChanged) {
-                File fh1 = new File( 'Dockerfile' )
-                text = fh1.getText('UTF-8')
-                echo text
-                echo 'changed'
+                File dockerFile = new File(dockerFilePath)
+                def dockerText = dockerFile.getText('UTF-8')
+                
+                String original = 'FROM node:8.11.1'
+                String replaceText = 'FROM base'
+                def modifiedDockerText = dockerText.replaceAll(original, replaceText)
+                
+                dockerFile.write(modifiedDockerText);
+                
+                sh 'cat Dockerfile'
             } else {
                 echo 'not changed'
             }
