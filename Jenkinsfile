@@ -2,6 +2,7 @@
 import hudson.*
 import groovy.json.JsonSlurperClassic
 import groovy.json.JsonOutput
+import hudson.FilePath
 import java.io.File
 
 def response
