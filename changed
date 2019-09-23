@@ -1,1 +1,5 @@
-git log --pretty=format:"%H" -1
+import hudson.*
+import groovy.json.JsonSlurperClassic
+import groovy.json.JsonOutput
+
+sh "git diff-tree --name-only HEAD | grep package.json"
