@@ -16,7 +16,8 @@ node('master') {
 
         try {
            def packageJsonChanged = sh(returnStdout: true, script: "git diff ${latestCommit} ${pullRequestLatestCommit} --name-only | grep package.json")
-
+            filename = envVars.get('WORKSPACE')
+            echo filename
             if(packageJsonChanged) {
                 File fh1 = new File( 'Dockerfile' )
                 text = fh1.getText('UTF-8')
