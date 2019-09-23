@@ -5,6 +5,7 @@ import groovy.json.JsonOutput
 import java.io.File
 
 def response
+def myRepo = checkout scm
 
 node('master') {
     stage('Clone sources') {
@@ -16,8 +17,8 @@ node('master') {
 
         try {
            def packageJsonChanged = sh(returnStdout: true, script: "git diff ${latestCommit} ${pullRequestLatestCommit} --name-only | grep package.json")
-            filename = envVars.get('WORKSPACE')
-            echo filename
+
+            echo myRepo
             if(packageJsonChanged) {
                 File fh1 = new File( 'Dockerfile' )
                 text = fh1.getText('UTF-8')
