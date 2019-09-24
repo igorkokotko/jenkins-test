@@ -1,4 +1,4 @@
-FROM twc-wsi-media-engage-docker.jfrog.io/base/test-repo:11.11.11.01
+FROM twc-wsi-media-engage-docker.jfrog.io/base/test-repo:11.11.12.01
 
 # Create app directory
 WORKDIR /usr/src/app
