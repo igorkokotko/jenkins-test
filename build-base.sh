@@ -1,1 +1,1 @@
-docker build -f Dockerfile.base -t geo-base .
+docker build -f Dockerfile.base -t test-repo-base .
