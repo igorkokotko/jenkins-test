@@ -5,7 +5,7 @@ const express = require('express');
 // Constants
 const PORT = 8080;
 const HOST = '0.0.0.0';
-const random = 'random';
+const random = 'random@';
 // App
 const app = express();
 app.get('/', (req, res) => {
